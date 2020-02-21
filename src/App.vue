@@ -4,6 +4,7 @@
       <InputSearch 
         @keyUpVal="setParentValueInput"
         placeholder="Pesquise por um anime"
+        class="search"
       />
 
       <div class="card" v-for="(anime, index) in returnedAnime.results" :key="index">
