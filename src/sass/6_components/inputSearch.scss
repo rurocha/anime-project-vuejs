@@ -4,11 +4,23 @@
     border-radius: 100px;
     padding: 1.5rem;
     width: 50%;
-    margin-top: 5rem;
+    font-size: 1rem;
+    margin: 5rem 0;
+    transition: 0.3s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.2, 1.4);
+    
+    &:hover {
+        transform: scale(1.1);
+    }
     
     &::placeholder {
         color: #fff;
         font-family: $fontDefault;
         font-size: 1rem;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0px 0px 5px -3px rgb(110, 208, 220);
     }
 }

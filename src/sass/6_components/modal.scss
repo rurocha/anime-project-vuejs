@@ -1,0 +1,55 @@
+.modal {
+
+    &__overlay {
+        position: fixed;
+        right: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    &__content {
+        width: 720px;
+        height: 400px;
+        background-color: #fff;
+    }
+
+    &__close {
+        cursor: pointer;
+    }
+}
+
+@keyframes blowUp {
+
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blowDown {
+
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.blowUp {
+    animation: 0.5s blowUp forwards;
+}
+
+.blowDown {
+    animation: 0.5s blowDown forwards;   
+}

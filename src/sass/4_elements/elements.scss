@@ -2,3 +2,12 @@ body {
     background-color: $blueDark1;
     font-family: 'Open Sans';
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+main {
+    padding: 0 2rem;
+}
