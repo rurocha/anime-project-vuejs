@@ -11,7 +11,7 @@ export default {
 
   methods: {
     sendValue() {
-      this.$emit('keyUpVal', event.target.value)
+      this.$emit('input', event.target.value)
     }
   },
 };

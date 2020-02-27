@@ -2,12 +2,12 @@
   <div id="app">
     <div class="text-center">
       <InputSearch 
-        @keyUpVal="setParentValueInput"
+        @input="setParentValueInput"
         placeholder="Pesquise por um anime"
         class="search"
       />
     </div>
-
+    
     <main>
       <div class="card-container">
         <Card
@@ -31,19 +31,43 @@
         <transition enter-active-class="blowUp" leave-active-class="blowDown">
           <div class="modal" v-if="isModalOpen">
             <div class="modal__overlay">
-              <button 
-                class="modal__close"
-                @click="isModalOpen = false"
-              >
-                X
-              </button>
-              <transition enter-active-class="blowzinhoup" leave-active-class="blowzinhodown">
                 <div class="modal__content">
-                  <div class="modal__header"></div>
-                  <div class="modal__body"></div>
-                  <div class="modal__footer"></div>
+                  <button 
+                    class="modal__close"
+                    @click="isModalOpen = false"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                  <div class="modal__bg">
+                    <img :src="dataAnimeClicked.image_url" alt="">
+                  </div>
+                  <div class="modal__info-anime">
+                    <div class="modal__content-item">
+                      <h3>Nome</h3>
+                      <p>{{dataAnimeClicked.title}}</p>
+                    </div>
+                    <div class="modal__content-item">
+                      <h3>Tipo</h3>
+                      <p>{{dataAnimeClicked.type}}</p>
+                    </div>
+                    <div class="modal__content-item">
+                      <h3>Episódios</h3>
+                      <p>{{dataAnimeClicked.episodes | stringEpisodes(dataAnimeClicked.episodes)}}</p>
+                    </div>
+                    <div class="modal__content-item modal__content-item--score">
+                      <span><i class="fas fa-star"></i></span>
+                      <span>{{dataAnimeClicked.score}}</span>
+                    </div>
+                    <div class="modal__content-item">
+                      <h3>Status</h3>
+                      <p>{{dataAnimeClicked.airing | stringAiring(dataAnimeClicked.airing)}}</p>
+                    </div>
+                    <div class="modal__content-item modal__content-item--synopsis">
+                      <h3>Sinopse</h3>
+                      <p>{{dataAnimeClicked.synopsis}}</p>
+                    </div>
+                  </div>
                 </div>
-              </transition>
             </div>
           </div>
         </transition>
@@ -82,18 +106,26 @@ export default {
     },
 
     itemClicked(target) {
-      console.log(target.id)
       this.dataAnimeClicked = this.returnedAnime.results[target.id]
       this.isModalOpen = true
     },
 
     async getDataApi() {
-      const data = await fetch(
-        `https://api.jikan.moe/v3/search/anime?q=${this.parentValue}`
-      );
+      const data = await fetch(`https://api.jikan.moe/v3/search/anime?q=${this.parentValue}`);
       const jsonData = await data.json();
       this.returnedAnime = jsonData;
     }
+  },
+
+  filters: {
+    stringEpisodes(value) {
+      return value === 0 ? 'Desconhecido' : value
+    },
+
+    stringAiring(value) {
+      return value ? 'Lançando' : 'Finalizado'
+    }
   }
+
 };
 </script>
