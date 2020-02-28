@@ -4,9 +4,11 @@
     align-items: center;
 
     &__description {
-        font-size: 1.5rem;
         font-weight: 700;
-        margin-top: 3rem;
+        
+        @media (min-width: 768px) {
+            font-size: 1.5rem;            
+        }
     }
 
     &__loader {
