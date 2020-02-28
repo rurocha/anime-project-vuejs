@@ -2,38 +2,43 @@
   <div id="app">
     <div class="text-center position-relative">
       <InputSearch @input="setParentValueInput" placeholder="Pesquise por um anime" class="search" />
-      <div class="anime-search__loader" v-show="loading">
-        <span class="anime-search__loader-elipse-left"></span>
-        <span class="anime-search__loader-elipse-center"></span>
-        <span class="anime-search__loader-elipse-right"></span>
-      </div>
+
+      <transition enter-active-class="blowUp" leave-active-class="blowDown">
+        <div class="anime-search__loader" v-show="loading">
+          <span class="anime-search__loader-elipse-left"></span>
+          <span class="anime-search__loader-elipse-center"></span>
+          <span class="anime-search__loader-elipse-right"></span>
+        </div>
+      </transition>
     </div>
 
-    <div class="anime-search" v-show="isDescriptionActive">
-      <span class="anime-search__description">Nenhum anime pesquisado ainda</span>
-    </div>
-
-    <main>
-      <div class="card-container">
-        <Card
-          v-for="(anime, index) in returnedAnime.results"
-          :key="index"
-          @click="itemClicked"
-          :id="index"
-        >
-          <img :src="anime.image_url" slot="anime-image" />
-          <div slot="anime-name">
-            <h3>Nome</h3>
-            <p>{{anime.title}}</p>
-          </div>
-          <div slot="anime-synopsis">
-            <h3>Sinopse</h3>
-            <p>{{anime.synopsis}}</p>
-          </div>
-          <h3 slot="anime-seemore">Veja mais</h3>
-        </Card>
+    <transition enter-active-class="blowUp" leave-active-class="blowDown">
+      <div class="anime-search" v-show="isDescriptionActive">
+        <span class="anime-search__description">Nenhum anime pesquisado ainda</span>
       </div>
-
+    </transition>
+    
+    <main>    
+      <transition-group enter-active-class="blowUp" leave-active-class="blowDown" tag="div" class="card-container">
+          <Card
+            v-for="(anime, index) in returnedAnime.results"
+            :key="index"
+            @click="itemClicked"
+            :id="index"
+          >
+            <img :src="anime.image_url" slot="anime-image" />
+            <div slot="anime-name">
+              <h3>Nome</h3>
+              <p>{{anime.title}}</p>
+            </div>
+            <div slot="anime-synopsis">
+              <h3>Sinopse</h3>
+              <p>{{anime.synopsis}}</p>
+            </div>
+            <h3 slot="anime-seemore">Veja mais</h3>
+          </Card>
+      </transition-group>
+      
       <transition enter-active-class="blowUp" leave-active-class="blowDown">
         <div class="modal" v-if="isModalOpen">
           <div class="modal__overlay">

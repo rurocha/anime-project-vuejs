@@ -1,6 +1,6 @@
 <template>
   <input 
-    type="search"
+    type="text"
     @keyup="sendValue" 
   />
 </template>
