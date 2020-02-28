@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <div class="text-center">
+    <div class="text-center position-relative">
       <InputSearch 
         @input="setParentValueInput"
         placeholder="Pesquise por um anime"
         class="search"
       />
+      <div class="anime-search__loader" v-show="loading">
+        <span class="anime-search__loader-elipse-left"></span>
+        <span class="anime-search__loader-elipse-center"></span>
+        <span class="anime-search__loader-elipse-right"></span>
+      </div>
     </div>
+
+    <div class="anime-search" v-show="isDescriptionActive">
+      <span class="anime-search__description">Nenhum anime pesquisado ainda</span>
+    </div>
+
     
     <main>
       <div class="card-container">
@@ -96,6 +106,8 @@ export default {
       returnedAnime: {},
       dataAnimeClicked: {},
       isModalOpen: false,
+      isDescriptionActive: true,
+      loading: false
     };
   },
 
@@ -111,9 +123,19 @@ export default {
     },
 
     async getDataApi() {
-      const data = await fetch(`https://api.jikan.moe/v3/search/anime?q=${this.parentValue}`);
-      const jsonData = await data.json();
-      this.returnedAnime = jsonData;
+      this.isDescriptionActive = false
+      this.loading = true
+      
+      try {
+        const data = await fetch(`https://api.jikan.moe/v3/search/anime?q=${this.parentValue}`);
+        const jsonData = await data.json();
+        this.returnedAnime = jsonData;
+      }
+
+      finally {
+        this.loading = false
+      }
+      
     }
   },
 
