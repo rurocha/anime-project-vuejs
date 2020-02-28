@@ -3,12 +3,16 @@
     box-shadow: 0px 1px 7px rgba(7, 7, 7, 0.47);
     border-radius: 100px;
     padding: 1.5rem;
-    width: 50%;
+    width: 80%;
     font-size: 1rem;
     margin: 5rem 0;
     transition: 0.3s;
     transition-timing-function: cubic-bezier(0.2, 1, 0.2, 1.4);
     
+    @media (min-width: 720px) {
+        width: 50%;    
+    }
+
     &:hover {
         transform: scale(1.1);
     }
